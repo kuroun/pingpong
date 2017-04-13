@@ -16,7 +16,6 @@
   <% end %>
 
   <div class="form-group">
-    <%f.hidden_field :player_one, :value => current_user.id %>
     <%= f.label 'Opponent', :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.select :player_two, options_for_select(User.where.not(:id => current_user.id).map{|value| [value.email, value.id]}),:include_blank => true, :class => 'form-control' %>

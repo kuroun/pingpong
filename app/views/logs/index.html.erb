@@ -5,26 +5,20 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:player_one) %></th>
-      <th><%= model_class.human_attribute_name(:player_two) %></th>
       <th><%= model_class.human_attribute_name(:played_date) %></th>
-      <th><%= model_class.human_attribute_name(:player_one_score) %></th>
-      <th><%= model_class.human_attribute_name(:player_two_score) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Opponent</th>
+      <th>Score</th>
+      <th>Result</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @logs.each do |log| %>
       <tr>
-        <td><%= link_to log.id, log_path(log) %></td>
-        <td><%= log.player_one %></td>
-        <td><%= log.player_two %></td>
         <td><%= log.played_date %></td>
-        <td><%= log.player_one_score %></td>
-        <td><%= log.player_two_score %></td>
-        <td><%=l log.created_at %></td>
+        <td><%= log.opponent.email %></td>
+        <td><%= "#{log.player_one_score} - #{log.player_two_score}" %></td>
+        <td><%= result(log.player_one_score, log.player_two_score) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_log_path(log), :class => 'btn btn-default btn-xs' %>
@@ -38,7 +32,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_log_path,
-            :class => 'btn btn-primary' %>

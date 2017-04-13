@@ -3,7 +3,7 @@ class LogsController < ApplicationController
 
   # GET /logs
   def index
-    @logs = Log.all
+    @logs = current_user.logs.all
   end
 
   # GET /logs/1
@@ -21,7 +21,7 @@ class LogsController < ApplicationController
 
   # POST /logs
   def create
-    @log = Log.new(log_params)
+    @log = current_user.logs.new(log_params)
 
     if @log.save
       redirect_to @log, notice: 'Log was successfully created.'
@@ -53,6 +53,6 @@ class LogsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def log_params
-      params.require(:log).permit(:player_one, :player_two, :played_date, :player_one_score, :player_two_score)
+      params.require(:log).permit(:player_two, :played_date, :player_one_score, :player_two_score)
     end
 end

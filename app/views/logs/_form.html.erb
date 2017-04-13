@@ -1,0 +1,57 @@
+<%= form_for @log, :html => { :class => "form-horizontal log" } do |f| %>
+
+  <% if @log.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@log.errors.count, "error") %> prohibited this log from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @log.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%f.hidden_field :player_one, :value => current_user.id %>
+    <%= f.label 'Opponent', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select :player_two, options_for_select(User.where.not(:id => current_user.id).map{|value| [value.email, value.id]}),:include_blank => true, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:player_two) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :played_date, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.date_select :played_date, :order => [:month, :day, :year], :class => 'form-control' %>
+
+    </div>
+    <%=f.error_span(:played_date) %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Your Score', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :player_one_score, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:player_one_score) %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Opponent Score', :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :player_two_score, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:player_two_score) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                logs_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>

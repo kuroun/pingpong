@@ -20,13 +20,18 @@ require 'rails_helper'
 
 RSpec.describe LogsController, type: :controller do
 
+  login_user
   # This should return the minimal set of attributes required to create a valid
   # Log. As you add validations to Log, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    User.create(:email => 'top_geek2@gmail.com',:password => '12345678', :score => 0)
+  end
+
   let(:valid_attributes) {
     {
-      player_one: 1,
-      player_two: 2,
+      player_one: User.where(:email => 'top_geek1@gmail.com').pluck(:id).first,
+      player_two: User.where(:email => 'top_geek2@gmail.com').pluck(:id).first,
       played_date: '2017-04-14',
       player_one_score: 21,
       player_two_score: 2
@@ -44,23 +49,17 @@ RSpec.describe LogsController, type: :controller do
     
   }
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # LogsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
   describe "GET #index" do
     it "assigns all logs as @logs" do
-      LogsController.class.skip_before_filter :authenticate
       log = Log.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(assigns(:logs)).to eq([log])
     end
   end
 
   describe "GET #new" do
     it "assigns a new log as @log" do
-      get :new, params: {}, session: valid_session
+      get :new, params: {}
       expect(assigns(:log)).to be_a_new(Log)
     end
   end
@@ -69,30 +68,30 @@ RSpec.describe LogsController, type: :controller do
     context "with valid params" do
       it "creates a new Log" do
         expect {
-          post :create, params: {log: valid_attributes}, session: valid_session
+          post :create, {log: valid_attributes}
         }.to change(Log, :count).by(1)
       end
 
       it "assigns a newly created log as @log" do
-        post :create, params: {log: valid_attributes}, session: valid_session
+        post :create, {log: valid_attributes}
         expect(assigns(:log)).to be_a(Log)
         expect(assigns(:log)).to be_persisted
       end
 
       it "redirects to the created log" do
-        post :create, params: {log: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Log.last)
+        post :create, {log: valid_attributes}
+        expect(response).to redirect_to logs_path
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved log as @log" do
-        post :create, params: {log: invalid_attributes}, session: valid_session
+        post :create, {log: invalid_attributes}
         expect(assigns(:log)).to be_a_new(Log)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {log: invalid_attributes}, session: valid_session
+        post :create, {log: invalid_attributes}
         expect(response).to render_template("new")
       end
     end

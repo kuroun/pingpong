@@ -11,5 +11,24 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe LogsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  describe '#result' do
+  	context 'score1 is greater than score 2' do
+  		it 'expect to return W' do
+  			expect(result(21, 0)).to eq 'W'
+  		end
+  	end
+
+  	context 'score2 is greater than score 1' do
+  		it 'expect to return L' do
+  			expect(result(14, 21)).to eq 'L'
+  		end
+  	end
+
+  	context 'score1 is equal score 2' do
+  		it 'expect to return D' do
+  			expect(result(21, 21)).to eq 'D'
+  		end
+  	end
+  end
 end

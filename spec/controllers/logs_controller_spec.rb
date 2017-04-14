@@ -58,26 +58,10 @@ RSpec.describe LogsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested log as @log" do
-      log = Log.create! valid_attributes
-      get :show, params: {id: log.to_param}, session: valid_session
-      expect(assigns(:log)).to eq(log)
-    end
-  end
-
   describe "GET #new" do
     it "assigns a new log as @log" do
       get :new, params: {}, session: valid_session
       expect(assigns(:log)).to be_a_new(Log)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested log as @log" do
-      log = Log.create! valid_attributes
-      get :edit, params: {id: log.to_param}, session: valid_session
-      expect(assigns(:log)).to eq(log)
     end
   end
 
@@ -113,61 +97,5 @@ RSpec.describe LogsController, type: :controller do
       end
     end
   end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested log" do
-        log = Log.create! valid_attributes
-        put :update, params: {id: log.to_param, log: new_attributes}, session: valid_session
-        log.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested log as @log" do
-        log = Log.create! valid_attributes
-        put :update, params: {id: log.to_param, log: valid_attributes}, session: valid_session
-        expect(assigns(:log)).to eq(log)
-      end
-
-      it "redirects to the log" do
-        log = Log.create! valid_attributes
-        put :update, params: {id: log.to_param, log: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(log)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the log as @log" do
-        log = Log.create! valid_attributes
-        put :update, params: {id: log.to_param, log: invalid_attributes}, session: valid_session
-        expect(assigns(:log)).to eq(log)
-      end
-
-      it "re-renders the 'edit' template" do
-        log = Log.create! valid_attributes
-        put :update, params: {id: log.to_param, log: invalid_attributes}, session: valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested log" do
-      log = Log.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: log.to_param}, session: valid_session
-      }.to change(Log, :count).by(-1)
-    end
-
-    it "redirects to the logs list" do
-      log = Log.create! valid_attributes
-      delete :destroy, params: {id: log.to_param}, session: valid_session
-      expect(response).to redirect_to(logs_url)
-    end
-  end
-
+  
 end

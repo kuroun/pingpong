@@ -18,7 +18,7 @@
   <div class="form-group">
     <%= f.label 'Opponent', :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select :player_two, options_for_select(User.where.not(:id => current_user.id).map{|value| [value.email, value.id]}),:include_blank => true, :class => 'form-control' %>
+      <%= f.select :player_two, options_for_select(User.where.not(:id => current_user.id).map{|value| [value.email, value.id]}, :selected => f.object.id),:include_blank => true, :class => 'form-control' %>
     </div>
     <%=f.error_span(:player_two) %>
   </div>

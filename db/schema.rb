@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413194421) do
+ActiveRecord::Schema.define(version: 20170414001918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20170413194421) do
 
   add_index "logs", ["player_one", "player_two"], name: "index_logs_on_player_one_and_player_two", using: :btree
 
+  create_table "seed_migration_data_migrations", force: :cascade do |t|
+    t.string   "version"
+    t.integer  "runtime"
+    t.datetime "migrated_on"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -41,7 +47,7 @@ ActiveRecord::Schema.define(version: 20170413194421) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "score"
+    t.integer  "score",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -9,7 +9,6 @@
       <th>Opponent</th>
       <th>Score</th>
       <th>Result</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,15 +18,6 @@
         <td><%= log.opponent.email %></td>
         <td><%= "#{log.player_one_score} - #{log.player_two_score}" %></td>
         <td><%= result(log.player_one_score, log.player_two_score) %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_log_path(log), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      log_path(log),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,24 @@
+<%- model_class = Log -%>
+<div class="page-header">
+  <h1>Leader Board</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Games Played</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @leaders.each_with_index do |leader, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= leader.email %></td>
+        <td><%= leader.score %></td>
+        <td><%= leader.logs.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

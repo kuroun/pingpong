@@ -1,13 +1,9 @@
 class LogsController < ApplicationController
-  before_action :set_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_log, only: [:destroy]
 
   # GET /logs
   def index
     @logs = current_user.logs.all
-  end
-
-  # GET /logs/1
-  def show
   end
 
   # GET /logs/new
@@ -15,34 +11,16 @@ class LogsController < ApplicationController
     @log = Log.new
   end
 
-  # GET /logs/1/edit
-  def edit
-  end
 
   # POST /logs
   def create
     @log = current_user.logs.new(log_params)
 
     if @log.save
-      redirect_to @log, notice: 'Log was successfully created.'
+      redirect_to logs_path, notice: 'Log was successfully created.'
     else
       render :new
     end
-  end
-
-  # PATCH/PUT /logs/1
-  def update
-    if @log.update(log_params)
-      redirect_to @log, notice: 'Log was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /logs/1
-  def destroy
-    @log.destroy
-    redirect_to logs_url, notice: 'Log was successfully destroyed.'
   end
 
   private

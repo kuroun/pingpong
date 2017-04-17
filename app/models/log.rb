@@ -11,17 +11,29 @@ class Log < ActiveRecord::Base
 	private 
 	
 	def update_leader_board 
+      
       player1 = RatedPlayer.new(self.player_one.to_s, user_score(self.player_one))
       player2 = RatedPlayer.new(self.player_two.to_s, user_score(self.player_two))
 
       score = 0.0
       score = 1.0 if(self.player_one_score > self.player_two_score) 
       score = 0.5 if(self.player_one_score == self.player_two_score) 
-      Match.new(player1, player2, score)
+      
+      begin
+        Match.new(player1, player2, score)
+      rescue StandardError => e
+        puts "===> Error occurs while matching #{player1.id} and #{player2.id} with score #{score}"
+      end
+
       User.where(:id => self.player_one).first.update_attribute(:score, player1.rating)
+  
     end
 
     def user_score user_id
-      User.where(:id => user_id).pluck(:score).first
+      begin
+        User.where(:id => user_id).pluck(:score).first
+      rescue StandardError => e
+        puts "===> Error occurs while looking for user score with user id #{user_id}: #{e}"
+      end
     end
 end

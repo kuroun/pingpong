@@ -18,9 +18,6 @@ The framework of the app already allows users to register and sign in. Your task
 
 ## Requirements
 
-Time alotted: 4 hours. 
-Mark your start and end times with your commits.
-
 Add all necessary migrations, models (with relationships, methods and validations), controllers, and tests.
 
 1. Add necessary functionality to log a game between two users
@@ -33,19 +30,6 @@ Add all necessary migrations, models (with relationships, methods and validation
   * When the leaderboard is first created all the users will be equal in ranking
 4. Populate all necessary models and controllers to support this functionality
 5. Populate all necessary tests for the models and the controllers
-6. Upload your code to a public repository (github)
-7. Deploy the solution to Heroku to complete the task
 
-Please note the following:
 
-* The UI uses bootstrap 3.3.5. [See docs here](http://getbootstrap.com/css/).
-* The current Gemfile should be sufficient for the task. Please feel free to include `rspec` (if needed) and deployment-related gems.
 
-# Evaluation Scoring
-
-We are evaluating you as a backend ruby developer.  We will score your completion of the task as follows:
-
-* 35 points for features completion
-* 35 points for code quality (RESTful, simple, readable)
-* 20 points for tests coverage
-* 10 points for deployment
